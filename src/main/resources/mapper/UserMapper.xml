@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nero.mybatis.mutiparam.mapper.UserMapper">
+    <!-- 一对一查询所有用户（包含身份证信息）：级联查询的第一种方法（嵌套查询，执行两个SQL语句）-->
+    <resultMap id="baseMap" type="com.nero.mybatis.mutiparam.po.UserPO">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+    </resultMap>
+    <!-- 根据用户名称或性别查询用户 （顺序传参法）#{arg0}是mybatis3.4以上版本的用法，3.4以下版本使用#{0}-->
+    <select id="getUserByNameSex1" resultMap="baseMap">
+        select * from user
+        where name = #{arg0} and sex = #{arg1}
+    </select>
+
+    <!-- 根据用户名称或性别查询用户 （Map传参法）-->
+    <select id="getUserByNameSex2" resultMap="baseMap">
+        select * from user
+        where name = #{name} and sex = #{sex}
+    </select>
+
+    <!-- 根据用户名称或性别查询用户 （POJO传参法）-->
+    <select id="getUserByNameSex3" resultMap="baseMap">
+        select * from user
+        where name = #{name} and sex = #{sex}
+    </select>
+
+    <!-- 根据用户名称或性别查询用户 （@Param注解传参法）-->
+    <select id="getUserByNameSex4" resultMap="baseMap">
+        select * from user
+        where name = #{name} and sex = #{sex}
+    </select>
+</mapper>
